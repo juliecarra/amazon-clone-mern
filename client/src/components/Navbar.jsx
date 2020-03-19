@@ -19,10 +19,11 @@ class Navbar extends Component {
   };
 
   // handleDeliveryCountry = () => {
-  //   const { user } = this.props.auth;
+  //   // const { user } = this.props.auth;
 
-  //   if (user && user.address) return user.address;
-  //   else return "France";
+  //   // if (user.address && user.address.country) return user.address.country;
+  //   // else return "France";
+
   // };
 
   render() {

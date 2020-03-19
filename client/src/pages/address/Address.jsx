@@ -26,7 +26,7 @@ export class Address extends Component {
 
   async onSetDefault(id) {
     try {
-      const response = await axios.put(`/api/addresses/default`, { id: id });
+      await axios.put(`/api/addresses/default`, { id: id });
     } catch (error) {
       console.log(error);
     }

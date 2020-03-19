@@ -42,7 +42,7 @@ class ProductItem extends Component {
               <li>
                 <span class="a-list-item">
                   <a class="a-link-normal a-color-tertiary" href="#">
-                    {/* {product.category.type} */}
+                    {product.category && product.category.type}{" "}
                   </a>
                 </span>
               </li>
@@ -68,35 +68,40 @@ class ProductItem extends Component {
                   {/* Image  */}
                   <div clas="imgBlock">
                     <div class="eBooksimg">
-                      <img src={product.image} class="img-fluid" />
+                      <img
+                        src={product.image}
+                        class="img-fluid"
+                        style={{ maxWidth: "94%" }}
+                      />
                     </div>
                   </div>
-
                   {/* Follow Author */}
-                  {/* <div class="authorFollow">
+                  <div class="authorFollow">
                     <hr class="a-divider-normal" />
                     <h1 class="authorFollowHeading">Follow The Author</h1>
                     <div class="a-spacing-top-small">
-                      <div class="row"> */}
-                  {/* Author's image  */}
-                  {/* <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                      <div class="row">
+                        {/* Author's image  */}
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
                           <div class="smallAuthorImageContainer">
                             <a href="#">
                               <img
-                                // src={product.owner.image}
+                                src={product.owner && product.owner.image}
                                 class="img-fluid"
                               />
                             </a>
                           </div>
-                        </div> */}
-                  {/* Author's Name */}
-                  {/* <div class="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-3">
-                          <div class="authorNameCol"> */}
-                  {/* <a href="#">{product.owner.name}</a> */}
-                  {/* </div>
-                        </div> */}
-                  {/* Author's Follow Button */}
-                  {/* <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-6">
+                        </div>
+                        {/* Author's Name */}
+                        <div class="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-3">
+                          <div class="authorNameCol">
+                            <a href="#">
+                              {product.owner && product.owner.name}
+                            </a>
+                          </div>
+                        </div>
+                        {/* Author's Follow Button */}
+                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-6">
                           <div class="authorBtn mt-2">
                             <a href="#">
                               <span class="btnFollow">
@@ -109,7 +114,7 @@ class ProductItem extends Component {
                         </div>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </div>
               {/* Middle 6 grid Description  */}
@@ -123,11 +128,12 @@ class ProductItem extends Component {
                     </h1>
                   </div>
                   {/* Author's name  */}
-                  {/* <div class="bylineinfo">
+                  <div class="bylineinfo">
                     by
-                    <a href="#" class="authorName"> */}
-                  {/* {product.owner.name} */}
-                  {/* <i
+                    <a href="#" class="authorName">
+                      {" "}
+                      {product.owner && product.owner.name}
+                      <i
                         class="fas fa-chevron-down"
                         style={{
                           fontSize: "8px !important",
@@ -136,7 +142,7 @@ class ProductItem extends Component {
                       ></i>
                     </a>{" "}
                     (Author)
-                  </div> */}
+                  </div>
                   <div class="reviewGroup"></div>
                   <hr style={{ marginTop: "10px" }} />
                   {/* A tags Dummy Data  */}
@@ -392,16 +398,19 @@ class ProductItem extends Component {
               <div class="bucket">
                 <ReviewSection product={product} reviews={reviews} />
 
-                {/* <h2>More about the author</h2>
+                <h2>More about the author</h2>
                 <div class="content">
-                  <div class="row"> */}
-                {/* Author's photo and Button  */}
-                {/* <div class="col-md-2 col-sm-4 col-4">
+                  <div class="row">
+                    {/* Author's photo and Button  */}
+                    <div class="col-md-2 col-sm-4 col-4">
                       <div class="authorContent">
                         <div class="authorImageSingle">
-                          <a href="#"> */}
-                {/* <img src={product.owner.image} class="img-fluid" /> */}
-                {/* </a>
+                          <a href="#">
+                            <img
+                              src={product.owner && product.owner.image}
+                              class="img-fluid"
+                            />
+                          </a>
                         </div>
                         <div class="authorFollow">
                           <button class="followButton" type="button">
@@ -410,16 +419,18 @@ class ProductItem extends Component {
                           </button>
                         </div>
                       </div>
-                    </div> */}
-                {/* Author's about  */}
-                {/* <div class="col-md-10 col-sm-8 col-8 pl-0">
-                      <div class="mainContent">
-                        <h3>Biography</h3> */}
-                {/* <div id="authorBio">{product.owner.about}</div> */}
-                {/* </div>
                     </div>
-                  </div> */}
-                {/* </div> */}
+                    {/* Author's about  */}
+                    <div class="col-md-10 col-sm-8 col-8 pl-0">
+                      <div class="mainContent">
+                        <h3>Biography</h3>
+                        <div id="authorBio">
+                          {product.owner && product.owner.about}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
