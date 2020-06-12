@@ -17,7 +17,7 @@ router.post("/", jwtMiddleware, (req, res) => {
     zipCode,
     phoneNumber,
     deliverInstructions,
-    securityCode
+    securityCode,
   } = req.body;
 
   const newAddress = new Address({
@@ -30,7 +30,7 @@ router.post("/", jwtMiddleware, (req, res) => {
     phoneNumber,
     deliverInstructions,
     securityCode,
-    user: req.decoded._id
+    user: req.decoded._id,
   });
 
   newAddress.save((err, address) => {
@@ -41,13 +41,13 @@ router.post("/", jwtMiddleware, (req, res) => {
     }
     return res.status(201).send({
       success: true,
-      address: address.toObject()
+      address: address.toObject(),
     });
   });
 });
 
 router.get("/", jwtMiddleware, (req, res) => {
-  Address.find({ user: req.decoded._id }).exec(function(err, addresses) {
+  Address.find({ user: req.decoded._id }).exec(function (err, addresses) {
     if (err)
       return res
         .status(500)
@@ -68,7 +68,7 @@ router.get("/countries", async (req, res) => {
 });
 
 router.get("/:id", jwtMiddleware, (req, res) => {
-  Address.findById({ _id: req.params.id }).exec(function(err, address) {
+  Address.findById({ _id: req.params.id }).exec(function (err, address) {
     if (err)
       return res
         .status(500)
@@ -78,28 +78,11 @@ router.get("/:id", jwtMiddleware, (req, res) => {
   });
 });
 
-// router.patch("/:id", jwtMiddleware, (req, res) => {
-//   const updatedAddress = { ...req.body };
-
-//   Address.findOneAndUpdate(
-//     { _id: req.params.id },
-//     { $set: updatedAddress },
-//     { new: true }
-//   ).exec(function(err, updatedAddress) {
-//     if (err)
-//       return res
-//         .status(500)
-//         .json({ message: "The server was unable to complete your request." });
-
-//     res.status(200).json({ updatedAddress });
-//   });
-// });
-
 router.patch("/:id", jwtMiddleware, async (req, res) => {
   try {
     let updatedAddress = await Address.findOne({
       user: req.decoded._id,
-      _id: req.params.id
+      _id: req.params.id,
     });
     if (updatedAddress) {
       if (req.body.country) updatedAddress.country = req.body.country;
@@ -120,20 +103,20 @@ router.patch("/:id", jwtMiddleware, async (req, res) => {
 
       res.status(200).json({
         success: true,
-        message: "Address has been successfully updated."
+        message: "Address has been successfully updated.",
       });
     }
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 });
 
 router.delete("/:id", jwtMiddleware, (req, res) => {
   Address.findByIdAndDelete({ user: req.decoded._id, _id: req.params.id }).exec(
-    function(err, deletedAddress) {
+    function (err, deletedAddress) {
       if (err)
         return res
           .status(500)
@@ -149,7 +132,7 @@ router.put("/default", jwtMiddleware, (req, res) => {
     { _id: req.decoded._id },
     { $set: { address: req.body.id } },
     { new: true }
-  ).exec(function(err, updatedAddress) {
+  ).exec(function (err, updatedAddress) {
     if (err)
       return res
         .status(500)

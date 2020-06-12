@@ -7,34 +7,6 @@ const uploader = require("../config/cloudinary");
 
 const jwtMiddleware = require("../middlewares/jwt");
 
-// router.post("/product/:id", [uploader.single("image")], async (req, res) => {
-//   try {
-//     const review = new Review();
-//     review.headline = req.body.headline;
-//     review.body = req.body.body;
-//     review.rating = req.body.rating;
-//     review.image = req.file;
-//     review.user = req.decoded._id;
-//     review.product = req.params.id;
-
-//     await Product.update({ $push: { reviews: review._id } });
-
-//     const savedReview = await review.save();
-
-//     if (savedReview) {
-//       res.status(201).json({
-//         success: true,
-//         message: "Review has been successfully added."
-//       });
-//     }
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: error.message
-//     });
-//   }
-// });
-
 router.post(
   "/product/:id",
   jwtMiddleware,
@@ -51,7 +23,7 @@ router.post(
       rating,
       image,
       user: req.decoded._id,
-      product: req.params.id
+      product: req.params.id,
     });
 
     if (req.file) newReview.image = req.file.secure_url;
@@ -71,10 +43,10 @@ router.post(
 
 router.get("/product/:id", (req, res) => {
   Review.find({
-    product: req.params.id
+    product: req.params.id,
   })
     .populate("user")
-    .exec(function(err, reviews) {
+    .exec(function (err, reviews) {
       if (err)
         return res
           .status(500)

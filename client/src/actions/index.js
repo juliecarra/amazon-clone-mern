@@ -23,23 +23,23 @@ import {
   HANDLE_SHIPMENT,
   CHOOSE_SHIPMENT,
   CLEAR_CART,
-  FETCH_ORDERS
+  FETCH_ORDERS,
 } from "./types";
 
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-export const fetchProducts = () => async dispatch => {
+export const fetchProducts = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/products");
-    // debugger;
+
     dispatch({ type: FETCH_PRODUCTS, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const fetchProductsById = id => async dispatch => {
+export const fetchProductsById = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/products/${id}`);
     dispatch({ type: FETCH_PRODUCTS_BY_ID, payload: res.data });
@@ -48,35 +48,35 @@ export const fetchProductsById = id => async dispatch => {
   }
 };
 
-export const addProduct = productData => async dispatch => {
+export const addProduct = (productData) => async (dispatch) => {
   try {
     const res = await axios.post("/api/products", productData);
-    // debugger;
+
     dispatch({ type: ADD_PRODUCT, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateProduct = (id, product) => async dispatch => {
+export const updateProduct = (id, product) => async (dispatch) => {
   try {
     const res = await axios.patch(`/api/products/${id}`, product);
 
     dispatch({
       type: UPDATE_PRODUCT,
-      payload: res.data
+      payload: res.data,
     });
   } catch (error) {
     console.log(error.response.message);
   }
 };
 
-export const deleteProduct = id => async dispatch => {
+export const deleteProduct = (id) => async (dispatch) => {
   try {
     await axios.delete(`/api/products/${id}`);
     dispatch({
       type: DELETE_PRODUCT,
-      payload: id
+      payload: id,
     });
   } catch (error) {
     console.log(error);
@@ -85,7 +85,7 @@ export const deleteProduct = id => async dispatch => {
 
 // Categories actions
 
-export const fetchCategories = () => async dispatch => {
+export const fetchCategories = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/categories");
     // debugger;
@@ -95,7 +95,7 @@ export const fetchCategories = () => async dispatch => {
   }
 };
 
-export const addCategory = categoryData => async dispatch => {
+export const addCategory = (categoryData) => async (dispatch) => {
   try {
     const res = await axios.post("/api/categories", categoryData);
     // debugger;
@@ -105,20 +105,20 @@ export const addCategory = categoryData => async dispatch => {
   }
 };
 
-export const fetchOwners = () => async dispatch => {
+export const fetchOwners = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/owners");
-    // debugger;
+
     dispatch({ type: FETCH_OWNERS, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const addOwner = ownerData => async dispatch => {
+export const addOwner = (ownerData) => async (dispatch) => {
   try {
     const res = await axios.post("/api/owners", ownerData);
-    // debugger;
+
     dispatch({ type: ADD_OWNER, payload: res.data });
   } catch (error) {
     console.log(error.response.data);
@@ -127,16 +127,16 @@ export const addOwner = ownerData => async dispatch => {
 
 // User actions
 
-export const signupUser = (userData, history) => async dispatch => {
+export const signupUser = (userData, history) => async (dispatch) => {
   try {
     await axios.post("/api/auth/signup", userData);
     history.push("/login");
   } catch (error) {
-    console.log(error);
+    console.error(error.response.data.message);
   }
 };
 
-export const loginUser = userData => async dispatch => {
+export const loginUser = (userData) => async (dispatch) => {
   try {
     const res = await axios.post("/api/auth/login", userData);
 
@@ -155,7 +155,16 @@ export const loginUser = userData => async dispatch => {
   }
 };
 
-export const logoutUser = () => dispatch => {
+export const currentUser = (id) => async (dispatch) => {
+  try {
+    await axios.get(`/user/${id}`);
+    localStorage.getItem("jwtToken");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const logoutUser = () => (dispatch) => {
   // Remove token from localStorage
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
@@ -164,42 +173,40 @@ export const logoutUser = () => dispatch => {
   dispatch(setCurrentUser({}));
 };
 
-export const setCurrentUser = decoded => {
+export const setCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: decoded,
   };
 };
 
-export const updateProfile = (id, user) => async dispatch => {
+export const updateProfile = (id, user) => async (dispatch) => {
   try {
     const res = await axios.put(`/api/auth/user/${id}`, user);
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
   } catch (error) {
-    console.log(error.response.message);
+    console.log(error.response);
   }
 };
 
 // Review actions
-export const fetchProductReviews = id => async dispatch => {
+export const fetchProductReviews = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/reviews/product/${id}`);
-
     dispatch({ type: FETCH_REVIEWS, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const addReview = (reviewData, id) => async dispatch => {
+export const addReview = (reviewData, id) => async (dispatch) => {
   try {
     const res = await axios.post(`/api/reviews/product/${id}`, reviewData);
 
-    // debugger;
     dispatch({ type: ADD_REVIEW, payload: res.data });
   } catch (error) {
     console.log(error);
@@ -207,33 +214,32 @@ export const addReview = (reviewData, id) => async dispatch => {
 };
 
 // Address actions
-export const addAddress = addressData => async dispatch => {
+export const addAddress = (addressData) => async (dispatch) => {
   try {
     const res = await axios.post("/api/addresses", addressData);
 
-    // debugger;
     dispatch({ type: ADD_ADDRESS, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const fetchAddresses = () => async dispatch => {
+export const fetchAddresses = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/addresses");
-    // debugger;
+
     dispatch({ type: FETCH_ADDRESSES, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteAddress = id => async dispatch => {
+export const deleteAddress = (id) => async (dispatch) => {
   try {
     await axios.delete(`/api/addresses/${id}`);
     dispatch({
       type: DELETE_ADDRESS,
-      payload: id
+      payload: id,
     });
   } catch (error) {
     console.log(error);
@@ -241,60 +247,60 @@ export const deleteAddress = id => async dispatch => {
 };
 
 // Cart actions
-export const addToCart = cartItem => dispatch => {
+export const addToCart = (cartItem) => (dispatch) => {
   dispatch({
     type: ADD_TO_CART,
-    payload: cartItem
+    payload: cartItem,
   });
 };
 
-export const getCart = () => dispatch => {
+export const getCart = () => (dispatch) => {
   dispatch({
     type: GET_CART,
-    payload: JSON.parse(localStorage.getItem("Cart"))
+    payload: JSON.parse(localStorage.getItem("Cart")),
   });
 };
 
-export const removeFromCart = id => dispatch => {
+export const removeFromCart = (id) => (dispatch) => {
   dispatch({
     type: REMOVE_ITEM_FROM_CART,
-    payload: id
+    payload: id,
   });
 };
 
-export const clearCart = () => dispatch => {
+export const clearCart = () => (dispatch) => {
   dispatch({
     type: CLEAR_CART,
-    payload: JSON.parse(localStorage.clear("Cart"))
+    payload: JSON.parse(localStorage.removeItem("Cart")),
   });
 };
 
 //Shipment actions
-export const handleShipment = () => async dispatch => {
+export const handleShipment = () => async (dispatch) => {
   try {
     const res = await axios.post("/api/payments/shipment", {
-      shipment: "normal"
+      shipment: "normal",
     });
-    // debugger;
+
     dispatch({ type: HANDLE_SHIPMENT, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const chooseShipment = shipment => async dispatch => {
+export const chooseShipment = (shipment) => async (dispatch) => {
   try {
     const res = await axios.post("/api/payments/shipment", {
-      shipment: shipment
+      shipment: shipment,
     });
-    // debugger;
+
     dispatch({ type: CHOOSE_SHIPMENT, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const handlePayment = totalPrice => async dispatch => {
+export const handlePayment = (totalPrice) => async (dispatch) => {
   try {
     const res = await axios.post("/api/payments", { totalPrice: totalPrice });
 
@@ -305,10 +311,10 @@ export const handlePayment = totalPrice => async dispatch => {
 };
 
 //Order actions
-export const fetchOrders = () => async dispatch => {
+export const fetchOrders = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/orders");
-    // debugger;
+
     dispatch({ type: FETCH_ORDERS, payload: res.data });
   } catch (error) {
     console.log(error);

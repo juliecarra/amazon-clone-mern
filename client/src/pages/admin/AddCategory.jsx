@@ -8,7 +8,7 @@ class AddCategory extends Component {
     super(props);
 
     this.state = {
-      type: ""
+      type: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -18,7 +18,7 @@ class AddCategory extends Component {
     this.props.fetchCategories();
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -39,31 +39,33 @@ class AddCategory extends Component {
     const { type } = this.state;
     return (
       <main>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-              <div class="a-section">
-                <div class="a-spacing-top-medium"></div>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-sm-3"></div>
+            <div className="col-sm-6">
+              <div className="a-section">
+                <div className="a-spacing-top-medium"></div>
                 <h2 style={{ textAlign: "center" }}>Add a new category</h2>
                 <form>
-                  {/* Category Input  */}
-                  <div class="a-spacing-top-medium">
+                  <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Type</label>
                     <input
                       type="text"
-                      class="a-input-text"
+                      className="a-input-text"
                       style={{ width: "100%" }}
                       name="type"
                       value={type}
                       onChange={this.handleChange}
                     />
                   </div>
-                  {/* Button  */}
-                  <div class="a-spacing-top-large">
-                    <span class="a-button-register">
-                      <span class="a-button-inner">
-                        <span class="a-button-text" onClick={this.submitForm}>
+
+                  <div className="a-spacing-top-large">
+                    <span className="a-button-register">
+                      <span className="a-button-inner">
+                        <span
+                          className="a-button-text"
+                          onClick={this.submitForm}
+                        >
                           Add Category
                         </span>
                       </span>
@@ -71,8 +73,8 @@ class AddCategory extends Component {
                   </div>
                 </form>
                 <br />
-                {categories.map(category => (
-                  <ul key={category._id} class="list-group-item">
+                {categories.map((category) => (
+                  <ul key={category._id} className="list-group-item">
                     <li>{category.type}</li>
                   </ul>
                 ))}
@@ -85,10 +87,10 @@ class AddCategory extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     categories: state.categories.categories,
-    category: state.category.category
+    category: state.category.category,
   };
 };
 

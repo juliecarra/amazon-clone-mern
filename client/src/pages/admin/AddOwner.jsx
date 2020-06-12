@@ -14,14 +14,14 @@ class AddOwner extends Component {
       name: "",
       about: "",
       image: "",
-      imageName: ""
+      imageName: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -48,8 +48,6 @@ class AddOwner extends Component {
 
       // Redirect to admin page
       this.props.history.push("/admin");
-
-      // return this.owners.push(this.name);
     } catch (error) {
       console.log(error);
     }
@@ -60,44 +58,43 @@ class AddOwner extends Component {
     const { name, about, imageName } = this.state;
     return (
       <main>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-              <div class="a-section">
-                <div class="a-spacing-top-medium"></div>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-sm-3"></div>
+            <div className="col-sm-6">
+              <div className="a-section">
+                <div className="a-spacing-top-medium"></div>
                 <h2 style={{ textAlign: "center" }}>Add a new owner</h2>
                 <form>
-                  {/* Name Input  */}
-                  <div class="a-spacing-top-medium">
+                  <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Name</label>
                     <input
                       type="text"
-                      class="a-input-text"
+                      className="a-input-text"
                       style={{ width: "100%" }}
                       name="name"
                       value={name}
                       onChange={this.handleChange}
                     />
                   </div>
-                  {/* About Input */}
-                  <div class="a-spacing-top-medium">
+
+                  <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>About</label>
                     <input
                       type="text"
-                      class="a-input-text"
+                      className="a-input-text"
                       style={{ width: "100%" }}
                       name="about"
                       value={about}
                       onChange={this.handleChange}
                     />
                   </div>
-                  {/* Photo Input */}
-                  <div class="a-spacing-top-medium">
+
+                  <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Add Image</label>
-                    <div class="a-row a-spacing-top-medium">
-                      <label for class="choosefile-button">
-                        <i class="fal fa-plus"></i>
+                    <div className="a-row a-spacing-top-medium">
+                      <label for className="choosefile-button">
+                        <i className="fal fa-plus"></i>
                         <input
                           type="file"
                           ref="file"
@@ -107,11 +104,14 @@ class AddOwner extends Component {
                       </label>
                     </div>
                   </div>
-                  {/* Button  */}
-                  <div class="a-spacing-top-large">
-                    <span class="a-button-register">
-                      <span class="a-button-inner">
-                        <span class="a-button-text" onClick={this.submitForm}>
+
+                  <div className="a-spacing-top-large">
+                    <span className="a-button-register">
+                      <span className="a-button-inner">
+                        <span
+                          className="a-button-text"
+                          onClick={this.submitForm}
+                        >
                           Add Owner
                         </span>
                       </span>
@@ -119,8 +119,8 @@ class AddOwner extends Component {
                   </div>
                 </form>
                 <br />
-                {owners.map(owner => (
-                  <ul key={owner._id} class="list-group-item">
+                {owners.map((owner) => (
+                  <ul key={owner._id} className="list-group-item">
                     <li>{owner.name}</li>
                   </ul>
                 ))}
@@ -133,10 +133,10 @@ class AddOwner extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     owners: state.owners.owners,
-    owner: state.owner.owner
+    owner: state.owner.owner,
   };
 };
 

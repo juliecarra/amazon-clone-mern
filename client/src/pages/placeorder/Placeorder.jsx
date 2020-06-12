@@ -2,29 +2,24 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import {
-  getCart,
-  fetchAddresses,
-  handleShipment,
-  chooseShipment
-} from "../../actions";
+import { getCart, fetchAddresses, handleShipment } from "../../actions";
 
 class Placeorder extends Component {
   componentDidMount() {
     this.props.getCart();
     this.props.fetchAddresses();
-    this.props.handleShipment();
+    this.handleChooseShipment();
   }
 
-  handleChooseShipment = shipment => {
-    this.props.chooseShipment(shipment);
+  handleChooseShipment = () => {
+    this.props.handleShipment();
   };
 
   getCartTotalPrice = () => {
     const { cart } = this.props.cart;
     let total = 0;
     cart &&
-      cart.map(product => {
+      cart.map((product) => {
         total += product.price;
       });
 
@@ -36,7 +31,7 @@ class Placeorder extends Component {
     const { cart } = this.props.cart;
     let total = 0;
     cart &&
-      cart.map(product => {
+      cart.map((product) => {
         total += product.price;
       });
     return total + shipment.price;
@@ -79,17 +74,18 @@ class Placeorder extends Component {
                         </div>
                         <div className="a-row">
                           <div className="displayAddressDiv">
-                            {/* <!-- User's address --> */}
-                            {addresses.map(address => (
+                            {addresses.map((address) => (
                               <ul className="displayAddressUL">
                                 <li>{address.fullName}</li>
                                 <li>{address.streetAddress}</li>
                                 <li>{address.city}</li>
                                 <li>{address.country}</li>
-                                <li>
-                                  Phone:
-                                  <span dir="ltr">{address.phoneNumber}</span>
-                                </li>
+                                {address.phoneNumber && (
+                                  <li>
+                                    Phone:
+                                    <span dir="ltr">{address.phoneNumber}</span>
+                                  </li>
+                                )}
                               </ul>
                             ))}
                           </div>
@@ -166,38 +162,34 @@ class Placeorder extends Component {
               <div className="spc-orders a-box">
                 <div className="a-box-inner">
                   <div className="shipping-group">
-                    {/* <!-- Estimated delivery --> */}
                     <div className="a-row a-color-state a-text-bold a-size-medium a-spacing-small">
                       Estimated delivery: {shipment.estimated}
                     </div>
                     <div className="row">
-                      {/* <!-- Cart --> */}
                       <div className="col-xl-6 col-lg-7 col-sm-6 col-12">
                         {cart &&
-                          cart.map(product => (
+                          cart.map((product) => (
                             <div
                               className="a-row a-spacing-base"
                               key={product._id}
                             >
                               <div className="row">
-                                {/* <!-- Product's photo --> */}
                                 <div className="col-sm-3 col-3">
                                   <img
                                     src={product.image}
                                     style={{ width: "100px" }}
                                   />
                                 </div>
-                                {/* <!-- Product's Title --> */}
+
                                 <div className="col-sm-9 col-9">
                                   <div className="a-row">
                                     <strong>{product.title}</strong>
                                   </div>
-                                  {/* <!-- Product's owner name --> */}
+
                                   <div className="a-row a-size-small">
                                     by {product.owner.name}
                                   </div>
                                   <div className="a-row">
-                                    {/* <!-- Product's price --> */}
                                     <span className="a-color-price a-spacing-micro">
                                       <strong dir="ltr">
                                         ${product.price}
@@ -210,7 +202,6 @@ class Placeorder extends Component {
                                     </span>
                                   </div>
                                   <div className="a-row">
-                                    {/* <!-- Product's quantity --> */}
                                     <strong>Quantity: 1</strong>
                                   </div>
                                   <div className="a-row a-color-secondary a-size-small">
@@ -245,17 +236,18 @@ class Placeorder extends Component {
                         <div className="a-row shipping-speeds">
                           <fieldset>
                             <span className="shipping-speeds-title a-size-medium">
-                              <b>Choose a delivery option:</b>
+                              <b>Delivery option:</b>
                             </span>
-                            {/* <!-- Delivery option --> */}
+
                             <div className="a-spacing-mini wednesday">
-                              {/* <!-- Shipping normal --> */}
                               <input
                                 type="radio"
                                 name="order0"
-                                onClick={this.handleChooseShipment("normal")}
+                                value="normal"
+                                onChange={this.handleChooseShipment}
                                 defaultChecked
                               />
+
                               <span className="a-radio-label">
                                 <span className="a-color-success">
                                   <strong>Averages 7 business days</strong>
@@ -268,23 +260,6 @@ class Placeorder extends Component {
                               </span>
                             </div>
                             <br />
-                            <div className="a-spacing-mini tuesday">
-                              {/* <!-- Shipping fast --> */}
-                              <input
-                                type="radio"
-                                name="order0"
-                                onClick={this.handleChooseShipment("fast")}
-                              />
-                              <span className="a-radio-label">
-                                <span className="a-color-success">
-                                  <strong>Averages 3 business days</strong>
-                                </span>
-                                <br />
-                                <span className="a-color-secondary">
-                                  $49.98&nbsp;-&nbsp;Shipping
-                                </span>
-                              </span>
-                            </div>
                           </fieldset>
                         </div>
                       </div>
@@ -330,19 +305,14 @@ class Placeorder extends Component {
                         style={{ fontSize: "12px" }}
                       >
                         <div className="row">
-                          {/* <!-- Cart's total price --> */}
                           <div className="col-sm-6">Items:</div>
-                          {cart.map(product => (
+                          {cart.map((product) => (
                             <div className="col-sm-6 text-right">
                               USD {product.price}
                             </div>
                           ))}
-                          {/* <div className="col-sm-6 text-right">
-                            USD {this.getCartTotalPrice()}
-                          </div> */}
                         </div>
                         <div className="row">
-                          {/* <!-- Shipping cost --> */}
                           <div className="col-sm-6">Shipping & handling:</div>
 
                           <div className="col-sm-6 text-right">
@@ -355,7 +325,7 @@ class Placeorder extends Component {
                             <hr />
                           </div>
                         </div>
-                        {/* <!-- Total Price with Shipping --> */}
+
                         <div className="row">
                           <div className="col-sm-6">Total Before Tax:</div>
                           <div className="col-sm-6 text-right">
@@ -376,7 +346,6 @@ class Placeorder extends Component {
                             </div>
                           </div>
                           <div className="col-sm-6 text-right">
-                            {/* <!-- Total Price with Shipping --> */}
                             <div className="a-color-price a-size-medium a-text-bold">
                               USD {this.getCartTotalPriceWithShipping()}
                             </div>
@@ -481,15 +450,14 @@ class Placeorder extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   cart: state.cart,
   addresses: state.addresses,
-  shipment: state.shipment
+  shipment: state.shipment,
 });
 
 export default connect(mapStateToProps, {
   getCart,
   fetchAddresses,
   handleShipment,
-  chooseShipment
 })(Placeorder);

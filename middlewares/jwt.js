@@ -1,32 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-// const jwtMiddleware = (req, res, next) => {
-//   let token = req.headers["x-access-token"] || req.headers["authorization"];
-//   let checkBearer = "Bearer ";
-
-//   if (token) {
-//     if (token.startsWith(checkBearer)) {
-//       token = token.slice(checkBearer.length, token.length);
-//     }
-//     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-//       if (err) {
-//         res.status(401).json({
-//           success: false,
-//           message: "Authentication failed"
-//         });
-//       } else {
-//         req.decoded = decoded;
-//         next();
-//       }
-//     });
-//   } else {
-//     res.status(401).json({
-//       success: false,
-//       message: "No token, authorization denied."
-//     });
-//   }
-// };
-
 const jwtMiddleware = (req, res, next) => {
   const token = req.header("x-auth-token"); //request token from header
 

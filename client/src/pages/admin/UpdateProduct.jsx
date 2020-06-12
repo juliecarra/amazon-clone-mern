@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import { connect } from "react-redux";
 
 import {
   fetchProductsById,
   updateProduct,
   fetchCategories,
-  fetchOwners
+  fetchOwners,
 } from "../../actions";
 
 class UpdateProduct extends Component {
@@ -28,14 +28,14 @@ class UpdateProduct extends Component {
       price: "",
       stockQuantity: "",
       category: "",
-      owner: ""
+      owner: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -63,9 +63,7 @@ class UpdateProduct extends Component {
       formData.append("category", this.state.category);
       formData.append("owner", this.state.owner);
 
-      debugger;
       await this.props.updateProduct(id, formData);
-      // await axios.patch(`/api/products/${id}`, formData);
 
       this.props.history.push("/admin");
     } catch (error) {
@@ -81,7 +79,7 @@ class UpdateProduct extends Component {
       image,
       imageName,
       price,
-      stockQuantity
+      stockQuantity,
     } = this.state;
 
     return (
@@ -94,7 +92,6 @@ class UpdateProduct extends Component {
                 <div className="a-spacing-top-medium"></div>
                 <h2 style={{ textAlign: "center" }}>Update {product.title}</h2>
                 <form>
-                  {/* Category Dropdown  */}
                   <div className="a-spacing-top-medium">
                     <label>Category</label>
                     <select
@@ -102,14 +99,14 @@ class UpdateProduct extends Component {
                       className="a-select-option"
                       onChange={this.handleChange}
                     >
-                      {categories.map(category => (
+                      {categories.map((category) => (
                         <option key={category._id} name="category">
                           {category.type}
                         </option>
                       ))}
                     </select>
                   </div>
-                  {/* Owner Dropdown  */}
+
                   <div className="a-spacing-top-medium">
                     <label>Owner</label>
                     <select
@@ -117,14 +114,14 @@ class UpdateProduct extends Component {
                       className="a-select-option"
                       onChange={this.handleChange}
                     >
-                      {owners.map(owner => (
+                      {owners.map((owner) => (
                         <option name="owner" key={owner._id}>
                           {owner.name}
                         </option>
                       ))}
                     </select>
                   </div>
-                  {/* Title Input  */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Title</label>
                     <input
@@ -137,7 +134,7 @@ class UpdateProduct extends Component {
                       placeholder={product.title}
                     />
                   </div>
-                  {/* Price Input */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Price</label>
                     <input
@@ -150,7 +147,7 @@ class UpdateProduct extends Component {
                       placeholder={product.price}
                     />
                   </div>
-                  {/* Stock Quantity Input */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>
                       Stock Quantity
@@ -165,7 +162,7 @@ class UpdateProduct extends Component {
                       placeholder={product.stockQuantity}
                     />
                   </div>
-                  {/* Description Input */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Description</label>
                     <textarea
@@ -176,7 +173,7 @@ class UpdateProduct extends Component {
                       onChange={this.handleChange}
                     ></textarea>
                   </div>
-                  {/* Photo Input  */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Add Image</label>
                     <div className="a-row a-spacing-top-medium">
@@ -191,7 +188,7 @@ class UpdateProduct extends Component {
                       </label>
                     </div>
                   </div>
-                  {/* Button  */}
+
                   <div className="a-spacing-top-large">
                     <span className="a-button-register">
                       <span className="a-button-inner">
@@ -215,11 +212,11 @@ class UpdateProduct extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     product: state.product.product,
     categories: state.categories.categories,
-    owners: state.owners.owners
+    owners: state.owners.owners,
   };
 };
 
@@ -227,5 +224,5 @@ export default connect(mapStateToProps, {
   fetchProductsById,
   updateProduct,
   fetchCategories,
-  fetchOwners
+  fetchOwners,
 })(UpdateProduct);

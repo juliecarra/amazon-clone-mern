@@ -1,18 +1,17 @@
 import { FETCH_CATEGORIES, ADD_CATEGORY } from "../actions/types";
 
 const initialState = {
-  categories: []
+  categories: [],
 };
 
 const initialCategoryState = {
-  category: []
+  category: [],
 };
 
 //reducer for categories
 export const categories = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CATEGORIES:
-      // debugger;
       return { ...state, categories: action.payload };
     default:
       return state;
@@ -23,7 +22,6 @@ export const categories = (state = initialState, action) => {
 export const category = (state = initialCategoryState, action) => {
   switch (action.type) {
     case ADD_CATEGORY:
-      // debugger;
       return { ...state, category: action.payload };
 
     default:

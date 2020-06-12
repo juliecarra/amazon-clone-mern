@@ -19,14 +19,14 @@ class AddReview extends Component {
       image: "",
       imageName: "",
       product: "",
-      user: ""
+      user: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -70,7 +70,6 @@ class AddReview extends Component {
     const { headline, body, rating, imageName } = this.state;
     return (
       <main>
-        {/* REVIEW ADDRESS */}
         <div className="reviewPage mt-3">
           <div className="container-fluid c-section">
             <div className="row">
@@ -81,11 +80,10 @@ class AddReview extends Component {
                     <b>Create Review</b>
                   </h1>
                   <div className="row">
-                    {/* Product Photo  */}
                     <div className="col-md-2 col-sm-3 col-3">
                       <img src={product.image} style={{ width: "80px" }} />
                     </div>
-                    {/* Product Title */}
+
                     <div className="col-md-10 col-sm-9 col-9 m-auto">
                       <h4>
                         <b>{product.title}</b>
@@ -96,7 +94,6 @@ class AddReview extends Component {
                   <hr />
                   <h2 className="a-spacing-base">Overall Rating</h2>
                   <div className="a-row">
-                    {/* Rating */}
                     <input
                       min="0"
                       max="5"
@@ -117,7 +114,6 @@ class AddReview extends Component {
                     </p>
                   </div>
                   <div className="a-row a-spacing-top-medium">
-                    {/* Choose a Photo */}
                     <label className="choosefile-button">
                       <i className="fal fa-plus"></i>
                       <input
@@ -130,7 +126,7 @@ class AddReview extends Component {
                   </div>
                   <div className="a-spacing-top-large"></div>
                   <hr />
-                  {/* Headline */}
+
                   <div className="headline a-spacing-large">
                     <h2 className="a-spacing-base">Add a headline</h2>
                     <input
@@ -143,7 +139,7 @@ class AddReview extends Component {
                       onChange={this.handleChange}
                     />
                   </div>
-                  {/* Body */}
+
                   <div className="a-spacing-base">
                     <h2 className="a-spacing-base">Write your review</h2>
                     <textarea
@@ -209,11 +205,11 @@ class AddReview extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     product: state.product.product,
-    review: state.review.review
+    review: state.review.review,
   };
 };
 

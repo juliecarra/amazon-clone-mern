@@ -19,7 +19,7 @@ class AddAddress extends Component {
       zipCode: "",
       phoneNumber: "",
       deliverInstructions: "",
-      securityCode: ""
+      securityCode: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.onAddAddress = this.onAddAddress.bind(this);
@@ -42,7 +42,7 @@ class AddAddress extends Component {
         zipCode: this.state.zipCode,
         phoneNumber: this.state.phoneNumber,
         deliverInstructions: this.state.deliverInstructions,
-        securityCode: this.state.securityCode
+        securityCode: this.state.securityCode,
       };
 
       await this.props.addAddress(data);
@@ -53,7 +53,7 @@ class AddAddress extends Component {
     }
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -80,32 +80,31 @@ class AddAddress extends Component {
       zipCode,
       phoneNumber,
       deliverInstructions,
-      securityCode
+      securityCode,
     } = this.state;
     return (
       <main>
-        {/* <!--REGISTER ADDRESS--> */}
-        <div class="registerAddress mt-3">
-          <div class="container-fluid c-section">
-            <div class="row">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-6">
-                <div class="a-section a-spacing-medium">
-                  <div class="a-subheader a-breadcrumb a-spacing-small">
+        <div className="registerAddress mt-3">
+          <div className="container-fluid c-section">
+            <div className="row">
+              <div className="col-sm-3"></div>
+              <div className="col-sm-6">
+                <div className="a-section a-spacing-medium">
+                  <div className="a-subheader a-breadcrumb a-spacing-small">
                     <ul>
                       <li>
                         <a href="#">
                           <span>Your Account</span>
                         </a>
                       </li>
-                      <li class="a-breadcrumb-divider">›</li>
+                      <li className="a-breadcrumb-divider">›</li>
                       <li>
                         <a href="#">
                           <span>Your Adresses</span>
                         </a>
                       </li>
-                      <li class="a-breadcrumb-divider">›</li>
-                      <li class="active">
+                      <li className="a-breadcrumb-divider">›</li>
+                      <li className="active">
                         <a href="#">
                           <span>New Address</span>
                         </a>
@@ -113,9 +112,9 @@ class AddAddress extends Component {
                     </ul>
                   </div>
                 </div>
-                <div class="a-section">
+                <div className="a-section">
                   <h2>Add a new address</h2>
-                  <div class="a-section a-spacing-none a-spacing-top-small">
+                  <div className="a-section a-spacing-none a-spacing-top-small">
                     <b>
                       Or pick up your packages at your convenience from our
                       self-service locations. To add an Amazon Pickup Point or
@@ -123,26 +122,24 @@ class AddAddress extends Component {
                       <a href="#">here</a>.
                     </b>
                   </div>
-                  {/* <!-- Error Message --> */}
-                  <div class="a-section a-spacing-none a-spacing-top-small">
+
+                  <div className="a-section a-spacing-none a-spacing-top-small">
                     <b></b>
                   </div>
                   <form>
-                    <div class="a-spacing-medium a-spacing-top-medium">
-                      {/* <!-- Country / Region --> */}
-                      <div class="a-spacing-top-medium">
+                    <div className="a-spacing-medium a-spacing-top-medium">
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>
                           Country/Region
                         </label>
                         <select
-                          class="a-select-option"
+                          className="a-select-option"
                           name="country"
                           value={country}
                           onChange={this.handleChange}
                         >
-                          {countries.map(country => (
+                          {countries.map((country) => (
                             <option
-                              v-for="country in countries"
                               key={country.alpha2Code}
                               value={country.name}
                             >
@@ -152,20 +149,20 @@ class AddAddress extends Component {
                           <option></option>
                         </select>
                       </div>
-                      {/* <!-- Full name --> */}
-                      <div class="a-spacing-top-medium">
+
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>Full Name</label>
                         <input
                           type="text"
-                          class="a-input-text"
+                          className="a-input-text"
                           style={{ width: "100%" }}
                           name="fullName"
                           value={fullName}
                           onChange={this.handleChange}
                         />
                       </div>
-                      {/* <!-- Street Address --> */}
-                      <div class="a-spacing-top-medium">
+
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>
                           Street Address
                         </label>
@@ -173,84 +170,83 @@ class AddAddress extends Component {
                           name="streetAddress1"
                           value={streetAddress1}
                           type="text"
-                          class="a-input-text"
+                          className="a-input-text"
                           style={{ width: "100%" }}
                           placeholder="Street and number, P.O. box, c/o."
                           onChange={this.handleChange}
                         />
-                        {/* <!-- Street Address 2 --> */}
+
                         <input
                           name="streetAddress2"
                           value={streetAddress2}
                           type="text"
-                          class="a-input-text a-spacing-top-small"
+                          className="a-input-text a-spacing-top-small"
                           style={{ width: "100%" }}
                           placeholder="Apartment, suite, unit, building, floor, etc."
                           onChange={this.handleChange}
                         />
                       </div>
-                      {/* <!-- City --> */}
-                      <div class="a-spacing-top-medium">
+
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>City</label>
                         <input
                           type="text"
-                          class="a-input-text"
+                          className="a-input-text"
                           style={{ width: "100%" }}
                           name="city"
                           value={city}
                           onChange={this.handleChange}
                         />
                       </div>
-                      {/* <!-- State --> */}
-                      <div class="a-spacing-top-medium">
+
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>
                           State / Province / Region
                         </label>
                         <input
                           type="text"
-                          class="a-input-text"
+                          className="a-input-text"
                           style={{ width: "100%" }}
                           name="state"
                           value={state}
                           onChange={this.handleChange}
                         />
                       </div>
-                      {/* <!-- Zip Code --> */}
-                      <div class="a-spacing-top-medium">
+
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>Zip Code</label>
                         <input
                           type="text"
-                          class="a-input-text"
+                          className="a-input-text"
                           style={{ width: "100%" }}
                           name="zipCode"
                           value={zipCode}
                           onChange={this.handleChange}
                         />
                       </div>
-                      {/* <!-- Phone Number --> */}
-                      <div class="a-spacing-top-medium">
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>
                           Phone Number
                         </label>
                         <input
                           type="text"
-                          class="a-input-text"
+                          className="a-input-text"
                           style={{ width: "100%" }}
                           name="phoneNumber"
                           value={phoneNumber}
                           onChange={this.handleChange}
                         />
-                        <div class="a-section a-spacing-none a-spacing-top-micro">
-                          <span class="a-size-mini">
+                        <div className="a-section a-spacing-none a-spacing-top-micro">
+                          <span className="a-size-mini">
                             May be used to assist delivery
                           </span>
                         </div>
                       </div>
-                      <div class="a-spacing-base a-spacing-top-medium">
+                      <div className="a-spacing-base a-spacing-top-medium">
                         <h3>Add delivery instructions</h3>
                       </div>
-                      {/* <!-- Delivery Instruction --> */}
-                      <div class="a-spacing-top-medium">
+
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>
                           Do we need additional instructions to find this
                           address?
@@ -263,15 +259,15 @@ class AddAddress extends Component {
                           onChange={this.handleChange}
                         ></textarea>
                       </div>
-                      {/* <!-- Security code --> */}
-                      <div class="a-spacing-top-medium">
+
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>
                           Do we need a security code or a call box number to
                           access this building?
                         </label>
                         <input
                           type="text"
-                          class="a-input-text"
+                          className="a-input-text"
                           style={{ width: "100%" }}
                           placeholder="1234"
                           name="securityCode"
@@ -279,18 +275,18 @@ class AddAddress extends Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div class="a-spacing-top-medium">
+                      <div className="a-spacing-top-medium">
                         <label style={{ marginBottom: "0px" }}>
                           Weekend delivery
                         </label>
                         <a href="#">
-                          <i class="fas fa-angle-down"></i> Which days can you
-                          receive packages?
+                          <i className="fas fa-angle-down"></i> Which days can
+                          you receive packages?
                         </a>
                       </div>
-                      <div class="a-spacing-top-medium"></div>
+                      <div className="a-spacing-top-medium"></div>
                       <hr />
-                      <div class="a-spacing-top-medium">
+                      <div className="a-spacing-top-medium">
                         <span>
                           <b>Make sure your address is correct</b>
                         </span>
@@ -301,7 +297,7 @@ class AddAddress extends Component {
                           package may be undeliverable.
                         </span>
                       </div>
-                      <div class="a-spacing-top-small">
+                      <div className="a-spacing-top-small">
                         <span>
                           <a href="#">Tips for entering addresses</a>
                         </span>
@@ -310,11 +306,11 @@ class AddAddress extends Component {
                           <a href="#">APO/FPO address tips</a>
                         </span>
                       </div>
-                      <div class="a-spacing-top-large">
-                        <span class="a-button-register">
-                          <span class="a-button-inner">
+                      <div className="a-spacing-top-large">
+                        <span className="a-button-register">
+                          <span className="a-button-inner">
                             <span
-                              class="a-button-text"
+                              className="a-button-text"
                               onClick={this.onAddAddress}
                             >
                               Add address
@@ -326,19 +322,18 @@ class AddAddress extends Component {
                   </form>
                 </div>
               </div>
-              <div class="col-sm-3"></div>
+              <div className="col-sm-3"></div>
             </div>
           </div>
         </div>
-        {/* <!--/REGISTER ADDRESS--> */}
       </main>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    address: state.address.address
+    address: state.address.address,
   };
 };
 

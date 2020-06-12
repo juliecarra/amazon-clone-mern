@@ -1,5 +1,7 @@
-//@Todo fix profile update
 import React, { Component } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { connect } from "react-redux";
 import { updateProfile } from "../../actions";
 
@@ -10,13 +12,14 @@ class Profile extends Component {
     this.state = {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      redirect: false,
     };
     this.onChange = this.onChange.bind(this);
     this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
   }
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -26,43 +29,50 @@ class Profile extends Component {
       let data = {
         name: this.state.name,
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
       };
 
-      const response = await this.props.updateProfile(id, data);
+      await this.props.updateProfile(id, data);
 
-      if (response.success) {
-        this.setState({ name: "", email: "", password: "" });
-      }
-
-      this.props.history.push("/");
+      await toast.success(
+        "Your profile has been updated, log back to see the changes."
+      );
     } catch (error) {
       console.log(error);
     }
   }
 
+  redirect = () => {
+    this.setState({ redirect: true });
+  };
   render() {
     const { name, email, password } = this.state;
     const { user } = this.props.auth;
+
     return (
       <main>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-              <div class="a-section">
-                <div class="a-spacing-top-medium"></div>
+        <div className="container-fluid">
+          <div className="row">
+            <ToastContainer />
+            <div className="col-sm-3"></div>
+            <div className="col-sm-6">
+              <div className="a-section">
+                <div className="a-spacing-top-medium"></div>
                 <h2 style={{ textAlign: "center" }}>Profile page</h2>
-                <a href="/" onClick="handleLogout">
+                <a
+                  href="/"
+                  onClick="handleLogout"
+                  className="a-button-history margin-right-10"
+                >
                   Logout
                 </a>
+
                 <form>
-                  {/* Name Input  */}
-                  <div class="a-spacing-top-medium">
+                  <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Name</label>
                     <input
                       type="text"
-                      class="a-input-text"
+                      className="a-input-text"
                       style={{ width: "100%" }}
                       name="name"
                       value={name}
@@ -70,12 +80,12 @@ class Profile extends Component {
                       onChange={this.onChange}
                     />
                   </div>
-                  {/* Email Input */}
-                  <div class="a-spacing-top-medium">
+
+                  <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Email</label>
                     <input
                       type="text"
-                      class="a-input-text"
+                      className="a-input-text"
                       style={{ width: "100%" }}
                       name="email"
                       value={email}
@@ -83,24 +93,24 @@ class Profile extends Component {
                       onChange={this.onChange}
                     />
                   </div>
-                  {/* Password Input */}
-                  <div class="a-spacing-top-medium">
+
+                  <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Password</label>
                     <input
                       type="password"
-                      class="a-input-text"
+                      className="a-input-text"
                       style={{ width: "100%" }}
                       name="password"
                       value={password}
                       onChange={this.onChange}
                     />
                   </div>
-                  {/* Button  */}
-                  <div class="a-spacing-top-large">
-                    <span class="a-button-register">
-                      <span class="a-button-inner">
+
+                  <div className="a-spacing-top-large">
+                    <span className="a-button-register">
+                      <span className="a-button-inner">
                         <span
-                          class="a-button-text"
+                          className="a-button-text"
                           onClick={this.handleUpdateProfile}
                         >
                           Update profile
@@ -119,8 +129,8 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { updateProfile })(Profile);

@@ -28,9 +28,9 @@ import Order from "./pages/order/Order";
 const App = withRouter(({ location }) => {
   return (
     <div>
-      {location.pathname !== "/signup" && location.pathname !== "/login" && (
-        <Navbar />
-      )}
+      {location.pathname !== "/signup" &&
+        location.pathname !== "/login" &&
+        location.pathname !== "/orders" && <Navbar />}
 
       <Switch>
         <Route exact path="/" component={Home} />
@@ -51,11 +51,11 @@ const App = withRouter(({ location }) => {
         <PrivateRoute exact path="/cart" component={Cart} />
         <PrivateRoute exact path="/placeorder" component={Placeorder} />
         <PrivateRoute exact path="/payment" component={Payment} />
-        {/* <PrivateRoute exact path="/orders" component={Order} /> */}
+        <PrivateRoute exact path="/orders" component={Order} />
       </Switch>
-      {location.pathname !== "/signup" && location.pathname !== "/login" && (
-        <Footer />
-      )}
+      {location.pathname !== "/signup" &&
+        location.pathname !== "/login" &&
+        location.pathname !== "/orders" && <Footer />}
     </div>
   );
 });

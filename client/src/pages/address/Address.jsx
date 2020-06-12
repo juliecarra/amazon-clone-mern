@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { fetchAddresses, deleteAddress } from "../../actions";
 
@@ -11,7 +13,7 @@ export class Address extends Component {
 
     this.state = {
       message: "",
-      addresses: []
+      addresses: [],
     };
   }
 
@@ -27,6 +29,9 @@ export class Address extends Component {
   async onSetDefault(id) {
     try {
       await axios.put(`/api/addresses/default`, { id: id });
+      toast.success(
+        "Your address has been successfully registered as your shipping address."
+      );
     } catch (error) {
       console.log(error);
     }
@@ -37,87 +42,84 @@ export class Address extends Component {
     const { message } = this.state;
     return (
       <main>
-        {/* <!--REGISTER ADDRESS--> */}
-        <div class="registerAddress mt-3">
-          <div class="container-fluid c-section">
-            <div class="row">
-              <div class="col-sm-2"></div>
-              <div class="col-sm-10">
-                <div class="a-section a-spacing-medium">
-                  <div class="a-subheader a-breadcrumb a-spacing-small">
+        <div className="registerAddress mt-3">
+          <ToastContainer />
+          <div className="container-fluid c-section">
+            <div className="row">
+              <div className="col-sm-2"></div>
+              <div className="col-sm-10">
+                <div className="a-section a-spacing-medium">
+                  <div className="a-subheader a-breadcrumb a-spacing-small">
                     <ul>
                       <li>
                         <a href="#">
                           <span>Your Account</span>
                         </a>
                       </li>
-                      <li class="a-breadcrumb-divider">›</li>
-                      <li class="active">
+                      <li className="a-breadcrumb-divider">›</li>
+                      <li className="active">
                         <a href="#">
                           <span>Your Adresses</span>
                         </a>
                       </li>
                     </ul>
                   </div>
-                  <h1 class="a-spacing-medium a-spacing-top-medium">
+                  <h1 className="a-spacing-medium a-spacing-top-medium">
                     Your Addresses
                   </h1>
-                  {/* <!-- Message from Server --> */}
-                  <div class="a-section a-spacing-none a-spacing-top-small">
+
+                  <div className="a-section a-spacing-none a-spacing-top-small">
                     <b>{message}</b>
                   </div>
-                  <div class="a-spacing-double-large">
-                    <div class="row a-spacing-micro">
-                      <div class="col-lg-4 col-md-5 col-sm-12 pb-2">
+                  <div className="a-spacing-double-large">
+                    <div className="row a-spacing-micro">
+                      <div className="col-lg-4 col-md-5 col-sm-12 pb-2">
                         <Link
                           to="/address/add"
-                          class="a-link-normal add-new-address-button"
+                          className="a-link-normal add-new-address-button"
                           style={{ textDecoration: "none" }}
                         >
-                          <div class="a-box first-desktop-address-tile">
-                            <div class="a-box-inner a-padding-extra-large">
-                              <i class="far fa-plus"></i>
-                              <h2 class="a-color-tertiary">Add Address</h2>
+                          <div className="a-box first-desktop-address-tile">
+                            <div className="a-box-inner a-padding-extra-large">
+                              <i className="far fa-plus"></i>
+                              <h2 className="a-color-tertiary">Add Address</h2>
                             </div>
                           </div>
                         </Link>
                       </div>
-                      {/* <!-- Address --> */}
-                      {addresses.map(address => (
+
+                      {addresses.map((address) => (
                         <div
-                          class="col-lg-4 col-md-4 col-sm-12 pl-md-0 pb-2"
+                          className="col-lg-4 col-md-4 col-sm-12 pl-md-0 pb-2"
                           key={address._id}
                         >
-                          <div class="a-box a-spacing-none normal-desktop-address-tile">
-                            <div class="a-box-inner a-padding-none">
-                              <div class="address-section-no-default">
-                                <div class="a-spacing-small">
-                                  <ul class="a-unordered-list a-nostyle a-vertical">
+                          <div className="a-box a-spacing-none normal-desktop-address-tile">
+                            <div className="a-box-inner a-padding-none">
+                              <div className="address-section-no-default">
+                                <div className="a-spacing-small">
+                                  <ul className="a-unordered-list a-nostyle a-vertical">
                                     <li>
                                       <h5>
-                                        {/* <!-- Address Fullname --> */}
                                         <b>{address.fullName}</b>
                                       </h5>
                                     </li>
-                                    {/* <!-- Address street address --> */}
+
                                     <li>{address.streetAddress}</li>
-                                    {/* <!-- Address city state zip code --> */}
+
                                     <li>
                                       {address.city}, {address.state},{" "}
                                       {address.zipCode}
                                     </li>
-                                    {/* <!-- Address country --> */}
+
                                     <li>{address.country}</li>
-                                    {/* <!-- Address Phone number --> */}
+
                                     <li>Phone number: {address.phoneNumber}</li>
                                   </ul>
                                 </div>
                               </div>
                             </div>
-                            {/* <!-- Edit Button --> */}
-                            <div class="edit-address-desktop-link">
-                              {/* <Link to={`/addresses/${address._id}`}>Edit</Link> */}
-                              {/* &nbsp; | &nbsp; */}
+
+                            <div className="edit-address-desktop-link">
                               <a
                                 href="#"
                                 onClick={this.handleDelete.bind(
@@ -127,9 +129,7 @@ export class Address extends Component {
                               >
                                 Delete
                               </a>
-                              {/* <!-- Delete Button --> */}
                               &nbsp; | &nbsp;
-                              {/* <!-- Set Address as Default --> */}
                               <a
                                 href="#"
                                 onClick={this.onSetDefault.bind(
@@ -137,13 +137,13 @@ export class Address extends Component {
                                   address._id
                                 )}
                               >
-                                Set as Default
+                                Set as Shipping Address
                               </a>
                             </div>
                           </div>
                         </div>
                       ))}
-                      <div class="col-lg-4 col-md-3 col-sm-12"></div>
+                      <div className="col-lg-4 col-md-3 col-sm-12"></div>
                     </div>
                   </div>
                 </div>
@@ -151,15 +151,14 @@ export class Address extends Component {
             </div>
           </div>
         </div>
-        {/* <!--/REGISTER ADDRESS--> */}
       </main>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    addresses: state.addresses.addresses
+    addresses: state.addresses.addresses,
   };
 };
 

@@ -20,14 +20,14 @@ class AddProducts extends Component {
       price: 0,
       stockQuantity: 1,
       category: "",
-      owner: ""
+      owner: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -69,7 +69,7 @@ class AddProducts extends Component {
       image,
       imageName,
       price,
-      stockQuantity
+      stockQuantity,
     } = this.state;
     const { categories, owners } = this.props;
 
@@ -83,7 +83,6 @@ class AddProducts extends Component {
                 <div className="a-spacing-top-medium"></div>
                 <h2 style={{ textAlign: "center" }}>Add a new product</h2>
                 <form>
-                  {/* Category Dropdown  */}
                   <div className="a-spacing-top-medium">
                     <label>Category</label>
                     <select
@@ -91,14 +90,14 @@ class AddProducts extends Component {
                       className="a-select-option"
                       onChange={this.handleChange}
                     >
-                      {categories.map(category => (
+                      {categories.map((category) => (
                         <option key={category._id} name="category">
                           {category.type}
                         </option>
                       ))}
                     </select>
                   </div>
-                  {/* Owner Dropdown  */}
+
                   <div className="a-spacing-top-medium">
                     <label>Owner</label>
                     <select
@@ -106,14 +105,14 @@ class AddProducts extends Component {
                       className="a-select-option"
                       onChange={this.handleChange}
                     >
-                      {owners.map(owner => (
+                      {owners.map((owner) => (
                         <option name="owner" key={owner._id}>
                           {owner.name}
                         </option>
                       ))}
                     </select>
                   </div>
-                  {/* Title Input  */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Title</label>
                     <input
@@ -125,7 +124,7 @@ class AddProducts extends Component {
                       onChange={this.handleChange}
                     />
                   </div>
-                  {/* Price Input */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Price</label>
                     <input
@@ -137,7 +136,7 @@ class AddProducts extends Component {
                       onChange={this.handleChange}
                     />
                   </div>
-                  {/* Stock Quantity Input */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>
                       Stock Quantity
@@ -151,7 +150,7 @@ class AddProducts extends Component {
                       onChange={this.handleChange}
                     />
                   </div>
-                  {/* Description Input */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Description</label>
                     <textarea
@@ -162,7 +161,7 @@ class AddProducts extends Component {
                       onChange={this.handleChange}
                     ></textarea>
                   </div>
-                  {/* Photo Input  */}
+
                   <div className="a-spacing-top-medium">
                     <label style={{ marginBottom: "0px" }}>Add Image</label>
                     <div className="a-row a-spacing-top-medium">
@@ -177,7 +176,7 @@ class AddProducts extends Component {
                       </label>
                     </div>
                   </div>
-                  {/* Button  */}
+
                   <div className="a-spacing-top-large">
                     <span className="a-button-register">
                       <span className="a-button-inner">
@@ -201,16 +200,16 @@ class AddProducts extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     product: state.product.product,
     categories: state.categories.categories,
-    owners: state.owners.owners
+    owners: state.owners.owners,
   };
 };
 
 export default connect(mapStateToProps, {
   addProduct,
   fetchCategories,
-  fetchOwners
+  fetchOwners,
 })(AddProducts);

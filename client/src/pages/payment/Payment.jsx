@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Elements } from "react-stripe-elements";
 import { connect } from "react-redux";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import {
-  getCart,
-  clearCart,
-  handlePayment,
-  chooseShipment
-} from "../../actions";
+import { getCart, clearCart } from "../../actions";
 
 import PaymentCheckoutForm from "./PaymentCheckoutForm";
 
@@ -18,9 +15,13 @@ class Payment extends Component {
     super(props);
 
     this.state = {
-      cart: []
+      cart: [],
+      redirect: false,
     };
     this.onPurchase = this.onPurchase.bind(this);
+  }
+  componentDidMount() {
+    this.props.getCart();
   }
 
   getCartTotalPriceWithShipping = () => {
@@ -28,20 +29,11 @@ class Payment extends Component {
     const { cart } = this.props.cart;
 
     let total = 0;
-    cart.map(product => {
+    cart.map((product) => {
       total += product.price;
     });
     return total + shipment.price;
   };
-
-  getCart = () => {
-    return this.state.cart;
-  };
-
-  // onPurchase = () => {
-  //   debugger;
-  //   this.props.handlePayment(this.getCartTotalPriceWithShipping());
-  // };
 
   onPurchase = async () => {
     const { shipment } = this.props.shipment;
@@ -49,32 +41,27 @@ class Payment extends Component {
     try {
       await axios.post("/api/payments", {
         totalPrice: this.getCartTotalPriceWithShipping(),
-
-        cart: this.getCart(),
-        estimatedDelivery: shipment.estimated
+        cart: this.props.getCart(),
+        estimatedDelivery: shipment.estimated,
       });
 
-      this.props.history.push("/");
-      // window.location.reload();
-      this.props.clearCart();
+      await this.props.history.push("/orders");
+      await this.props.clearCart();
     } catch (error) {
       console.log(error);
     }
   };
 
   render() {
-    const { cart } = this.props.cart;
-    const { shipment } = this.props.shipment;
     return (
       <main>
-        {/* <!--Payment --> */}
         <div className="registerAddress mt-3">
+          <ToastContainer />
           <div className="container-fluid c-section">
             <div className="row">
               <div className="col-sm-3"></div>
               <div className="col-sm-6">
                 <div className="a-section a-spacing-medium">
-                  {/* <!-- Breadcrumbs --> */}
                   <div className="a-subheader a-breadcrumb a-spacing-small">
                     <ul>
                       <li>
@@ -105,20 +92,12 @@ class Payment extends Component {
                     </b>
                   </div>
 
-                  {/* <!-- Error message  --> */}
-                  {/* <div className="a-section a-spacing-none a-spacing-top-small">
-                <b>Error</b>
-              </div> */}
                   <div className="a-section a-spacing-none a-spacing-top-small">
                     <b>(Test with this credit card number: 4242424242424242)</b>
                   </div>
                   <form action="#" method="post">
                     <div className="a-spacing-medium a-spacing-top-medium">
                       <div className="a-spacing-top-medium">
-                        {/* <!-- Stripe card --> */}
-                        {/* <div ref="card"></div> */}
-
-                        {/* <!-- End of Stripe card --> */}
                         <div className="payment">
                           <Elements>
                             <PaymentCheckoutForm {...this.props} />
@@ -140,7 +119,6 @@ class Payment extends Component {
                         </span>
                       </div>
 
-                      {/* <!-- Purchase Button --> */}
                       <div className="a-spacing-top-large">
                         <span className="a-button-register">
                           <span className="a-button-inner">
@@ -161,17 +139,14 @@ class Payment extends Component {
             </div>
           </div>
         </div>
-        {/* <!--/Payment ADDRESS--> */}
       </main>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   cart: state.cart,
-  shipment: state.shipment
+  shipment: state.shipment,
 });
 
-export default connect(mapStateToProps, { getCart, clearCart, chooseShipment })(
-  Payment
-);
+export default connect(mapStateToProps, { getCart, clearCart })(Payment);
