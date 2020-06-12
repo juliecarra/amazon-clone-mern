@@ -128,7 +128,6 @@ export class Home extends Component {
                 <p className="sidebar">Travel</p>
               </div>
               <br />
-              <hr />
             </div>
 
             <div className="col-xl-10 col-lg-9 md-8 col-sm-8">
