@@ -192,7 +192,6 @@ class ProductItem extends Component {
                                 <a href="#" className="a-button-text">
                                   <span>
                                     <img
-                                      src="/img/audibleLogo.png"
                                       className="img-fluid"
                                       style={{ width: "20px" }}
                                     />

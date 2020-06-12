@@ -129,25 +129,6 @@ export class Home extends Component {
               </div>
               <br />
               <hr />
-              <h1
-                style={{ fontWeight: "700", fontSize: "16px", color: "grey" }}
-              >
-                Refine by
-              </h1>
-              <br />
-              <div style={{ lineHeight: "5px;" }}>
-                <h1 style={{ fontWeight: "700", fontSize: "13px" }}>Format</h1>
-                <br />
-                <p className="sidebar">Paperback</p>
-                <p className="sidebar">Hardcover</p>
-                <p className="sidebar">Kindle Edition</p>
-                <p className="sidebar">Large Print</p>
-                <p className="sidebar">Audible Audiobook</p>
-                <p className="sidebar">Printed Access Code</p>
-                <p className="sidebar">Loose Leaf</p>
-                <p className="sidebar">Audio CD</p>
-                <p className="sidebar">Board Book</p>
-              </div>
             </div>
 
             <div className="col-xl-10 col-lg-9 md-8 col-sm-8">
